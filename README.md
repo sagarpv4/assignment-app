@@ -11,7 +11,9 @@ Currently, two official plugins are available:
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
+Follow the insturctions to run the code:
+
 1. Clone the repo - assignment-app
-2. Install npm
+2. Install npm software
 3. Go to repo directory
 4. npm run dev
