@@ -1,11 +1,11 @@
 
-import './App.css'
-import InstagramSearch from './InstagramSearch'
+
+import  Search from './components/InstagramSearch/Search'
 
 
 function App() {
   return (
-    <InstagramSearch />
+    <Search/>
   )
 }
 
