@@ -1,29 +1,28 @@
 import { useState } from 'react'
-
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchUsers } from '../providers/fetchUsers';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 
 export default function InstagramSearch() {
 
 
-    const [search, setSearch] = useState('');
+    const [searchText, setSearchText] = useState('');
     const [error, setError] = useState('');
     const [users, setUsers] = useState([]);
 
     const handleChange = (e) => {
         const input = e.target.value;
-
         const inputAlphanumericOnly = input.replace(/[^a-zA-Z0-9]/g, '');
         const inputTrimmed = inputAlphanumericOnly.slice(0, 30);
-        setSearch(inputTrimmed);
+        setSearchText(inputTrimmed);
     };
 
 
     const handleSearch = async () => {
         try {
 
-            let usersResponse = await fetchUsers(search);
+            let usersResponse = await fetchUsers(searchText);
             const users = usersResponse.response?.body?.users ?? [];
             setUsers(users);
         } catch (err) {
@@ -44,7 +43,7 @@ export default function InstagramSearch() {
                     <h2 style={{ textAlign: 'left' }}>Search Input</h2>
                     <input
                         type="text"
-                        value={search}
+                        value={searchText}
                         onChange={handleChange}
                         onPaste={handlePaste}
                         placeholder="Enter alphanumeric text"
@@ -61,46 +60,27 @@ export default function InstagramSearch() {
                 <button onClick={handleSearch} style={{ padding: '0.5rem 1rem', textAlign: 'left' }}>
                     Search
                 </button>
-
                 {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+                <Container className="mt-4">
+                    {users && users.length > 0 &&
+                        users.map((user, index) => (
+                            <Row>
+                                <Col md={4}>
 
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">User Name </th>
-                            <th scope="col">Full Name </th>
-                            <th scope="col">Profile Picture</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {users && users.length > 0 ? (
-                            users.map((user) => (
-                                <tr>
-                                    <td>{user.username}</td>
-                                    <td>{user.full_name}</td>
-                                    <td>
-                                        <a href={user.profile_pic_url} target="_blank" rel="noopener noreferrer">
-                                            <img
-                                                src={user.profile_pic_url}
-                                                alt={user.username}
-                                                style={{ width: 50, height: 50, borderRadius: '50%' }}
-                                            />
-                                        </a>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="3" style={{ textAlign: 'center', padding: '1rem' }}>
-                                    No Users found.
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-
+                                    <Card style={{ width: '50rem' }}>
+                                        {user.username} |  {user.full_name}
+                                        <Card.Link href={user.profile_pic_url} target="_blank" rel="noopener noreferrer">
+                                            {user.username}
+                                        </Card.Link>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        ))
+                    }
+                    {users && users.length === 0 &&
+                        <span> No Users Found</span>
+                    }  
+                </Container>
             </div>
 
         </>
