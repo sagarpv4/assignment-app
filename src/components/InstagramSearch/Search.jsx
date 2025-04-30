@@ -57,7 +57,7 @@ export default function InstagramSearch() {
                     <span style={{ margin: '10px', padding: '5px' }}>Max 30 characters</span>
                 </div>
 
-                <button onClick={handleSearch} style={{ padding: '0.5rem 1rem', textAlign: 'left' }}>
+                <button onClick={handleSearch} style={{ padding: '0.5rem 1rem', textAlign: 'left' ,backgroundColor : "lightsteelblue"}}>
                     Search
                 </button>
                 {error && <p style={{ color: 'red' }}>Error: {error}</p>}
