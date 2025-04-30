@@ -10,16 +10,21 @@ export default function InstagramSearch() {
     const [searchText, setSearchText] = useState('');
     const [error, setError] = useState('');
     const [users, setUsers] = useState([]);
+    const [hasSearched, setHasSearched] = useState(false);
 
     const handleChange = (e) => {
         const input = e.target.value;
         const inputAlphanumericOnly = input.replace(/[^a-zA-Z0-9]/g, '');
         const inputTrimmed = inputAlphanumericOnly.slice(0, 30);
         setSearchText(inputTrimmed);
+        if (inputTrimmed === '') {
+            setHasSearched(false);
+        }
     };
 
 
     const handleSearch = async () => {
+        setHasSearched(true);
         try {
 
             let usersResponse = await fetchUsers(searchText);
@@ -57,7 +62,7 @@ export default function InstagramSearch() {
                     <span style={{ margin: '10px', padding: '5px' }}>Max 30 characters</span>
                 </div>
 
-                <button onClick={handleSearch} style={{ padding: '0.5rem 1rem', textAlign: 'left' ,backgroundColor : "lightsteelblue"}}>
+                <button onClick={handleSearch} style={{ padding: '0.5rem 1rem', textAlign: 'left', backgroundColor: "lightsteelblue" }}>
                     Search
                 </button>
                 {error && <p style={{ color: 'red' }}>Error: {error}</p>}
@@ -67,18 +72,17 @@ export default function InstagramSearch() {
                             <Row>
                                 <Col md={4}>
                                     <Card style={{ width: '30rem' }} key={index}>
-                                        {user.username} |  {user.full_name}
-                                        <Card.Link href={user.profile_pic_url} target="_blank">
-                                            {user.username}
+                                    <Card.Link href={user.profile_pic_url} target="_blank">
+                                        👤
                                         </Card.Link>
+                                        <Card.Text>User Name: <strong>{user.username}</strong> </Card.Text>
+                                        <Card.Text>Full Name: <strong>{user.full_name}</strong> </Card.Text>
                                     </Card>
                                 </Col>
                             </Row>
-                        ))
-                    }
-                    {users && users.length === 0 &&
-                        <span> No Users Found</span>
-                    }  
+                        ))}
+
+                    {hasSearched && users.length === 0 && <span> No Users Found</span>}
                 </Container>
             </div>
 
