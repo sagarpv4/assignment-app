@@ -15,5 +15,8 @@ Follow the insturctions to run the code:
 
 1. Clone the repo - assignment-app
 2. Install npm software
-3. Go to repo directory
+3. Switch to repo directory
 4. npm run dev
+5. Its a vite project and it will run on the default port 5174
+6. Access the application in browser - http://localhost:5174/
+   
