@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const fetchUsers = async (search) => {
+export const fetchUsers = async (searchText) => {
     let url = "https://v1.rocketapi.io/instagram/user/search";
     const API_KEY = '51FUXIsfFCsuxbU3tZ9I7A';
     const requestConfig = {
@@ -10,11 +10,9 @@ export const fetchUsers = async (search) => {
             'Content-Type': 'application/json',
             'Authorization': 'Token'+" "+API_KEY,
         },
-
         data: {
-            query: search
+            query: searchText
         }
-
     };
     try {
         let response = await axios(requestConfig);
