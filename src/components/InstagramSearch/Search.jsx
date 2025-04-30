@@ -66,10 +66,9 @@ export default function InstagramSearch() {
                         users.map((user, index) => (
                             <Row>
                                 <Col md={4}>
-
-                                    <Card style={{ width: '50rem' }}>
+                                    <Card style={{ width: '30rem' }} key={index}>
                                         {user.username} |  {user.full_name}
-                                        <Card.Link href={user.profile_pic_url} target="_blank" rel="noopener noreferrer">
+                                        <Card.Link href={user.profile_pic_url} target="_blank">
                                             {user.username}
                                         </Card.Link>
                                     </Card>
